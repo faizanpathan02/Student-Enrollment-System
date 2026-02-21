@@ -1,74 +1,70 @@
 package com.college.dao.impl;
 
 import com.college.config.HibernateConfig;
-import com.college.dao.CourseDAO;
-import com.college.entity.Course;
+import com.college.dao.DepartmentDAO;
+import com.college.entity.Department;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class CourseDAOImpl implements CourseDAO {
+public class DepartmentDAOImpl implements DepartmentDAO {
+
     @Override
-    public void save(Course course) {
+    public void save(Department department) {
         Transaction transaction = null;
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
 
             transaction = session.beginTransaction();
-            session.persist(course);
+            session.persist(department);
             transaction.commit();
-
         }catch (Exception e){
-            if(transaction!=null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
     }
 
     @Override
-    public Course findById(int id) {
+    public Department findById(int id) {
+
         try(Session session = HibernateConfig.getSessionFactory().openSession()) {
-
-            return session.get(Course.class , id);
+            return session.get(Department.class , id);
         }
-
     }
 
     @Override
-    public List<Course> findAll() {
+    public List<Department> findAll() {
         try (Session session = HibernateConfig.getSessionFactory().openSession()){
 
-            return session.createQuery("FROM Course " , Course.class).getResultList();
+            return session.createQuery("FROM Department " , Department.class).getResultList();
         }
-
     }
 
     @Override
-    public void update(Course course) {
+    public void update(Department department) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()){
 
             transaction = session.beginTransaction();
-            session.merge(course);
+            session.merge(department);
             transaction.commit();
-
         }catch (Exception e){
-            if (transaction!= null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
+
     }
 
     @Override
-    public void delete(Course course) {
-
+    public void delete(Department department) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()){
+
             transaction = session.beginTransaction();
-
-            session.remove(course);
+            session.remove(department);
             transaction.commit();
-
         }catch (Exception e){
-            if (transaction!=null) transaction.rollback();
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
 
