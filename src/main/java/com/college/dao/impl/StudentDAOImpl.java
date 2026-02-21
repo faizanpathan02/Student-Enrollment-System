@@ -1,4 +1,4 @@
-package com.college.daoimpl;
+package com.college.dao.impl;
 
 import com.college.config.HibernateConfig;
 import com.college.dao.StudentDAO;

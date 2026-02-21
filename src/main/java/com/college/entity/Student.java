@@ -83,8 +83,8 @@ public class Student {
 
     @Override
     public String toString() {
-        return   "Student" +
-                "---------------------------"+
+        return   "Student" + "\n" +
+                "---------------------------"+ "\n" +
                 "id        " + id + "\n" +
                 "name      " + name + "\n" +
                 "email     " + email + "\n" +

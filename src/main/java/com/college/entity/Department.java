@@ -54,10 +54,9 @@ public class Department {
     @Override
     public String toString() {
         return "Department{" +
-                "department_id=" + department_id +
+                "id=" + department_id +
                 ", name='" + name + '\'' +
-                ", courses=" + courses +
-                ", teachers=" + teachers +
                 '}';
     }
+
 }

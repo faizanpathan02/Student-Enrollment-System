@@ -1,63 +1,49 @@
 package com.college.main;
 
 import com.college.config.HibernateConfig;
+import com.college.dao.CourseDAO;
+import com.college.dao.impl.CourseDAOImpl;
 import com.college.entity.*;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import java.security.spec.ECField;
-import java.util.Arrays;
+import java.util.List;
 
 public class App {
 
     public static void main(String[] args) {
 
-        Session session = HibernateConfig.getSessionFactory().openSession();
+//        StudentDAO studentDAO = new StudentDAOImpl();
+//
+//        Student student = studentDAO.findByEmail("fk874451@gmail.com");
+//
+//        if (student != null){
+//            System.out.println("Student Found ");
+//            System.out.println(student);
+//        }else {
+//            System.out.println("Student Not Found");
+//        }
 
-        Transaction transaction = null;
+        CourseDAO courseDAO = new CourseDAOImpl();
+        Course course = new Course();
+        course.setTitle("Hibernate Mastery");
+        course.setCredits(4);
+        courseDAO.save(course);
+        System.out.println("Course saved successfully");
 
-        try {
+        Course fetched = courseDAO.findById(course.getId());
+        System.out.println("Fetche Course :" + fetched);
 
-            transaction = session.beginTransaction();
+        List<Course> courses = courseDAO.findAll();
+        System.out.println("All Courses :");
+        courses.forEach(System.out::println);
 
-            Department department = new Department();
-            department.setName("Computer Science");
+        HibernateConfig.shutdown();
 
-            Teacher teacher = new Teacher();
-            teacher.setTeacher_name("Dr. Sharma");
-            teacher.setEmail("sharma@college.com");
-            teacher.setDepartment(department);
 
-            Course course1 = new Course();
-            course1.setTitle("Java Programming");
-            course1.setCredits(4);
-            course1.setTeacher(teacher);
-            course1.setDepartment(department);
 
-            Course course2 = new Course();
-            course2.setTitle("Database Systems");
-            course2.setCredits(5);
-            course2.setTeacher(teacher);
-            course2.setDepartment(department);
 
-            department.setTeachers(Arrays.asList(teacher));
-            department.setCourses(Arrays.asList(course1 , course2));
 
-            teacher.setCourses(Arrays.asList(course1, course2));
 
-            session.persist(department);
-            transaction.commit();
 
-            System.out.println("Department , Course and Teacher are set Successfully");
 
-        }catch (Exception e){
-            if (transaction!=null){
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
     }
-
 }

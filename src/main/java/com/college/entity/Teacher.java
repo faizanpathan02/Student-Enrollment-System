@@ -68,7 +68,6 @@ public class Teacher {
                 ", teacher_name='" + teacher_name + '\'' +
                 ", email='" + email + '\'' +
                 ", department=" + department +
-                ", courses=" + courses +
                 '}';
     }
 }
